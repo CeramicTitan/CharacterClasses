@@ -1,0 +1,10 @@
+name: CharacterClasses
+main: me.ceramictitan.character.Classes
+version: 1.1
+description: >
+             Custom Server Plugin
+commands:
+    track:
+        description: The only command :D
+    generate:
+        description: testing only.

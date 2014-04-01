@@ -33,9 +33,9 @@ public class EntityUtils {
         packet.setField("j",asCompressedAngle(location.getPitch()));
 
             DataWatcher watcher = new DataWatcher();
-            watcher.write(0, (Object)0x20);
-            watcher.write(6, (Object) 20.0);
-            watcher.write(16, (Object) size);
+            watcher.write(0, (Object)(byte)0x20);
+            watcher.write(6, (Object)20.0f);
+            watcher.write(16, (Object)(byte)size);
 
         packet.setField("l", watcher.getHandle());
 

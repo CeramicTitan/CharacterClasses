@@ -41,10 +41,8 @@ public class EntityUtils {
 
         return packet;
     }
-    public static Packet craftEntityDestroyPacket(int... entityIds){
-        List<Integer> list = new ArrayList<Integer>();
+    public static Packet craftEntityDestroyPacket(List<Integer> list){
         Packet packet = new Packet("PacketPlayOutEntityDestroy");
-        for(int ids : entityIds){list.add(ids);}
         packet.setField("a", list.toArray());
         return packet;
     }

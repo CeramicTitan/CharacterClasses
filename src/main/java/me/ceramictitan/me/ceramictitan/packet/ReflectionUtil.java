@@ -6,12 +6,16 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class ReflectionUtils{
-
+public class ReflectionUtil {
     public static final String NMS_PATH = getNMSPackageName();
+    public static final String CB_PATH = getCBPackageName();
 
     public static String getNMSPackageName() {
         return "net.minecraft.server." + Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
+    }
+
+    public static String getCBPackageName() {
+        return "org.bukkit.craftbukkit." + Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
     }
 
     /**
@@ -22,13 +26,17 @@ public class ReflectionUtils{
         try {
             return Class.forName(name);
         } catch (ClassNotFoundException e) {
-            Bukkit.getLogger().warning("Could not find class: " + name + "!");
+           Bukkit.getLogger().warning("Could not find class: " + name + "!");
             return null;
         }
     }
 
     public static Class getNMSClass(String className) {
         return getClass(NMS_PATH + "." + className);
+    }
+
+    public static Class getCBCClass(String className) {
+        return getClass(CB_PATH+"."+className);
     }
 
     /**
@@ -39,7 +47,7 @@ public class ReflectionUtils{
         try {
             Field field = clazz.getDeclaredField(fieldName);
 
-            if(!field.isAccessible()) {
+            if (!field.isAccessible()) {
                 field.setAccessible(true);
             }
 
@@ -64,6 +72,15 @@ public class ReflectionUtils{
             getField(clazz, fieldName).set(instance, value);
         } catch (IllegalAccessException e) {
             Bukkit.getLogger().warning("Could not set new field value for: " + fieldName);
+        }
+    }
+
+    public static <T> T getField(Field field, Object instance) {
+        try {
+            return (T) field.get(instance);
+        } catch (IllegalAccessException e) {
+            Bukkit.getLogger().warning("Failed to retrieve field: " + field.getName());
+            return null;
         }
     }
 

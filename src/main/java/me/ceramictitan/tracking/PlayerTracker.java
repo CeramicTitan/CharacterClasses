@@ -39,11 +39,11 @@ public class PlayerTracker extends Tracker{
         Bukkit.getLogger().info("Slime1 spawned!");
         PlayerUtils.sendPacket(p, EntityUtils.craftSlimeSpawnPacket(EntityType.SLIME.getTypeId(), slime2, p.getLocation(), 1).getHandle());
         Bukkit.getLogger().info("Slime2 spawned!");
-        PlayerUtils.sendPacket(p, EntityUtils.craftAttachPacket(p.getEntityId(), slime1).getHandle());
+        PlayerUtils.sendPacket(p, EntityUtils.craftAttachPacket(slime1, p.getEntityId()).getHandle());
         Bukkit.getLogger().info("Slime1 attached to "+ p.getName());
-        PlayerUtils.sendPacket(p, EntityUtils.craftAttachPacket(slime1, slime2).getHandle());
+        PlayerUtils.sendPacket(p, EntityUtils.craftAttachPacket(slime2, slime1).getHandle());
         Bukkit.getLogger().info("Slime1 attached to slime slime2!");
-        PlayerUtils.sendPacket(p, EntityUtils.craftAttachPacket(slime2, icon.getEntityId()).getHandle());
+        PlayerUtils.sendPacket(p, EntityUtils.craftAttachPacket(icon.getEntityId(), slime2).getHandle());
         Bukkit.getLogger().info("slime2 attached to icon");
 
     }

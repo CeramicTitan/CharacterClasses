@@ -1,11 +1,8 @@
-package me.ceramictitan.me.ceramictitan.packet.me.ceramictitan.packet.wrapper;
+package me.ceramictitan.packet.wrapper;
 
 
 import me.ceramictitan.me.ceramictitan.packet.ReflectionUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 
 public class DataWatcher extends BasicWrapper {
 

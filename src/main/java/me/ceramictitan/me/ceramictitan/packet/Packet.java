@@ -1,10 +1,6 @@
 package me.ceramictitan.me.ceramictitan.packet;
 
-import me.ceramictitan.me.ceramictitan.packet.me.ceramictitan.packet.wrapper.BasicWrapper;
-import org.bukkit.Bukkit;
-
-import java.lang.reflect.Field;
-import java.util.logging.Level;
+import me.ceramictitan.packet.wrapper.BasicWrapper;
 
 public class Packet extends BasicWrapper {
 

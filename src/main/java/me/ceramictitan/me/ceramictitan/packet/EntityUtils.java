@@ -1,6 +1,6 @@
 package me.ceramictitan.me.ceramictitan.packet;
 
-import me.ceramictitan.me.ceramictitan.packet.me.ceramictitan.packet.wrapper.DataWatcher;
+import me.ceramictitan.packet.wrapper.DataWatcher;
 import org.bukkit.Location;
 
 import java.util.ArrayList;
@@ -12,10 +12,10 @@ public class EntityUtils {
 
     static List<Integer> uuids = new ArrayList<Integer>();
 
-    public static Packet craftAttachPacket(int that, int to) {
+    public static Packet craftAttachPacket(int entity, int vehicle) {
         Packet packet = new Packet("PacketPlayOutAttachEntity");
-        packet.setField("a", that);
-        packet.setField("b", to);
+        packet.setField("a", entity);
+        packet.setField("b", vehicle);
         packet.setField("c", 0);
         return packet;
     }
@@ -33,7 +33,7 @@ public class EntityUtils {
         packet.setField("j",asCompressedAngle(location.getPitch()));
 
             DataWatcher watcher = new DataWatcher();
-            watcher.write(0, (Object)(byte)0x20);
+            //watcher.write(0, (Object)(byte)0x20);
             watcher.write(6, (Object)20.0f);
             watcher.write(16, (Object)(byte)size);
 

@@ -1,7 +1,11 @@
 package me.ceramictitan.me.ceramictitan.packet;
 
 import me.ceramictitan.packet.wrapper.DataWatcher;
+import me.ceramictitan.packet.wrapper.PacketAttachEntity;
+import me.ceramictitan.packet.wrapper.PacketDestroyEntity;
+import me.ceramictitan.packet.wrapper.PacketSpawnEntity;
 import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,39 +16,38 @@ public class EntityUtils {
 
     static List<Integer> uuids = new ArrayList<Integer>();
 
-    public static Packet craftAttachPacket(int entity, int vehicle) {
-        Packet packet = new Packet("PacketPlayOutAttachEntity");
-        packet.setField("a", entity);
-        packet.setField("b", vehicle);
-        packet.setField("c", 0);
-        return packet;
+    public static PacketAttachEntity getPacketAttachEntity(int entity, int vehicle) {
+        PacketAttachEntity attach = new PacketAttachEntity();
+        attach.setEntityId(entity);
+        attach.setVehicleId(vehicle);
+        attach.setLeached(false);
+        return attach;
     }
 
-    public static Packet craftSlimeSpawnPacket(int entityType, int id, Location location, int size) {
+    public static PacketSpawnEntity getPacketSpawnEntity(int id, double x, double y, double z, int size) {
 
-        Packet packet = new Packet("PacketPlayOutSpawnEntityLiving");
+        PacketSpawnEntity spawn = new PacketSpawnEntity();
 
-        packet.setField("a", id);
-        packet.setField("b", entityType);
-        packet.setField("c", floor(location.getX()));
-        packet.setField("d", floor(location.getY()));
-        packet.setField("e",floor(location.getZ()));
-        packet.setField("i",asCompressedAngle(location.getYaw()));
-        packet.setField("j",asCompressedAngle(location.getPitch()));
+        spawn.setEntityId(id);
+        spawn.setEntityType(EntityType.SLIME.getTypeId());
+        spawn.setX(x);
+        spawn.setY(y);
+        spawn.setZ(z);
 
             DataWatcher watcher = new DataWatcher();
-            //watcher.write(0, (Object)(byte)0x20);
-            watcher.write(6, (Object)20.0f);
-            watcher.write(16, (Object)(byte)size);
+            //watcher.watch(0, (Object)(byte)0x20);
+            watcher.watch(6, (Object) 20.0f);
+            watcher.watch(16, (Object) (byte) size);
 
-        packet.setField("l", watcher.getHandle());
+        spawn.setDataWatcher(watcher);
 
-        return packet;
+        return spawn;
     }
-    public static Packet craftEntityDestroyPacket(List<Integer> list){
-        Packet packet = new Packet("PacketPlayOutEntityDestroy");
-        packet.setField("a", list.toArray());
-        return packet;
+    public static PacketDestroyEntity getPacketDestroyEntity(int[] entities){
+        PacketDestroyEntity destroy = new PacketDestroyEntity();
+        destroy.setEntities(entities);
+        return destroy;
+
     }
 
     public static int floor(double d) {
@@ -68,5 +71,12 @@ public class EntityUtils {
             return ID_INDEX++;
         }
         return ID_INDEX;
+    }
+    public static int[] toIntArray(List<Integer> integerList) {
+        int[] intArray = new int[integerList.size()];
+        for (int i = 0; i < integerList.size(); i++) {
+            intArray[i] = integerList.get(i);
+        }
+        return intArray;
     }
 }

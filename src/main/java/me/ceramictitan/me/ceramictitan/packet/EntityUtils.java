@@ -42,7 +42,7 @@ public class EntityUtils {
         spawn.setZ(z);
 
             DataWatcher watcher = new DataWatcher();
-            //watcher.watch(0, (Object)(byte)0x20);
+            watcher.watch(0, (Object)(byte)0x20);
             watcher.watch(6, (Object) 20.0f);
             watcher.watch(16, (Object) (byte) size);
 

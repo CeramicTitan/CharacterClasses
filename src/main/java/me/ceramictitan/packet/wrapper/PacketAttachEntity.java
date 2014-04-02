@@ -3,9 +3,9 @@ package me.ceramictitan.packet.wrapper;
 import me.ceramictitan.me.ceramictitan.packet.Packet;
 import me.ceramictitan.me.ceramictitan.packet.PacketType;
 
-public class AttachEntity extends Packet {
+public class PacketAttachEntity extends Packet {
 
-    public AttachEntity() {
+    public PacketAttachEntity() {
         super(PacketType.ENTITY_ATTACH);
     }
 

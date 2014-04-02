@@ -1,10 +1,7 @@
 package me.ceramictitan.me.ceramictitan.packet;
 
-import me.ceramictitan.packet.wrapper.DataWatcher;
-import me.ceramictitan.packet.wrapper.PacketAttachEntity;
-import me.ceramictitan.packet.wrapper.PacketDestroyEntity;
-import me.ceramictitan.packet.wrapper.PacketSpawnEntity;
-import org.bukkit.Location;
+import me.ceramictitan.packet.wrapper.*;
+import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 
 import java.util.ArrayList;
@@ -23,10 +20,20 @@ public class EntityUtils {
         attach.setLeached(false);
         return attach;
     }
+    public static PacketSpawnEntity getPacketSpawnEntity(int id, double x, double y, double z){
+        PacketSpawnEntity block = new PacketSpawnEntity();
+        block.setEntityId(id);
+        block.setX(x);
+        block.setY(y);
+        block.setZ(z);
+        block.setEntityType(2);
+        block.setData(57);
+        return block;
+    }
 
-    public static PacketSpawnEntity getPacketSpawnEntity(int id, double x, double y, double z, int size) {
+    public static PacketSpawnMobEntity getPacketSpawnMobEntity(int id, double x, double y, double z, int size) {
 
-        PacketSpawnEntity spawn = new PacketSpawnEntity();
+        PacketSpawnMobEntity spawn = new PacketSpawnMobEntity();
 
         spawn.setEntityId(id);
         spawn.setEntityType(EntityType.SLIME.getTypeId());

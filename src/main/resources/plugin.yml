@@ -8,5 +8,5 @@ commands:
         description: The only command :D
     generate:
         description: testing only.
-    kill
+    kill:
         description: testing.

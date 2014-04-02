@@ -27,7 +27,7 @@ public class EntityUtils {
         block.setY(y);
         block.setZ(z);
         block.setEntityType(2);
-        block.setData(57);
+        block.setData(Material.DIAMOND_BLOCK.getId());
         return block;
     }
 

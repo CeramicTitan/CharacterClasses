@@ -1,6 +1,7 @@
 package me.ceramictitan.tracking;
 
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 
@@ -9,5 +10,5 @@ public abstract class Tracker {
 
     public abstract Player getTracker();
     public abstract Player setTracker(Player player);
-    public abstract void showTrackingIcon();
+    public abstract void showTrackingIcon(ItemStack icon);
 }

@@ -1,10 +1,17 @@
 package me.ceramictitan.me.ceramictitan.packet;
 
-import me.ceramictitan.packet.wrapper.*;
+import com.comphenix.packetwrapper.WrapperPlayServerAttachEntity;
+import com.comphenix.packetwrapper.WrapperPlayServerEntityMetadata;
+import com.comphenix.packetwrapper.WrapperPlayServerSpawnEntity;
+import com.comphenix.packetwrapper.WrapperPlayServerSpawnEntityLiving;
+import com.comphenix.protocol.wrappers.WrappedDataWatcher;
+import com.comphenix.protocol.wrappers.WrappedWatchableObject;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class EntityUtils {
@@ -13,59 +20,46 @@ public class EntityUtils {
 
     static List<Integer> uuids = new ArrayList<Integer>();
 
-    public static PacketAttachEntity getPacketAttachEntity(int entity, int vehicle) {
-        PacketAttachEntity attach = new PacketAttachEntity();
+    public static List<Integer> getUUIDS(){
+        return uuids;
+    }
+
+    public static WrapperPlayServerSpawnEntityLiving spawnSlime(int id, double x, double y, double z, int size){
+        WrapperPlayServerSpawnEntityLiving slime = new WrapperPlayServerSpawnEntityLiving();
+        slime.setEntityID(id);
+        slime.setX(x);
+        slime.setY(y);
+        slime.setZ(z);
+        slime.setType(EntityType.SLIME);
+        WrappedDataWatcher watcher = new WrappedDataWatcher();
+        //watcher.setObject(0, (byte)0x20);
+        watcher.setObject(6, 20.0f);
+        watcher.setObject(16, (byte)size);
+        slime.setMetadata(watcher);
+        return slime;
+    }
+    public static WrapperPlayServerAttachEntity attachEntity(int entity, int vehicle){
+        WrapperPlayServerAttachEntity attach = new WrapperPlayServerAttachEntity();
         attach.setEntityId(entity);
         attach.setVehicleId(vehicle);
-        attach.setLeached(false);
         return attach;
     }
-    public static PacketSpawnEntity getPacketSpawnEntity(int id, double x, double y, double z){
-        PacketSpawnEntity block = new PacketSpawnEntity();
-        block.setEntityId(id);
+    public static WrapperPlayServerSpawnEntity spawnBlock(int id, double x, double y, double z){
+        WrapperPlayServerSpawnEntity block = new WrapperPlayServerSpawnEntity();
+        block.setEntityID(id);
         block.setX(x);
         block.setY(y);
         block.setZ(z);
-        block.setEntityType(2);
-        block.setData(Material.DIAMOND_BLOCK.getId());
+        block.setType(2);
         return block;
     }
-
-    public static PacketSpawnMobEntity getPacketSpawnMobEntity(int id, double x, double y, double z, int size) {
-
-        PacketSpawnMobEntity spawn = new PacketSpawnMobEntity();
-
-        spawn.setEntityId(id);
-        spawn.setEntityType(EntityType.SLIME.getTypeId());
-        spawn.setX(x);
-        spawn.setY(y);
-        spawn.setZ(z);
-
-            DataWatcher watcher = new DataWatcher();
-            watcher.watch(0, (Object)(byte)0x20);
-            watcher.watch(6, (Object) 20.0f);
-            watcher.watch(16, (Object) (byte) size);
-
-        spawn.setDataWatcher(watcher);
-
-        return spawn;
-    }
-    public static PacketDestroyEntity getPacketDestroyEntity(int[] entities){
-        PacketDestroyEntity destroy = new PacketDestroyEntity();
-        destroy.setEntities(entities);
-        return destroy;
-
-    }
-
-    public static int floor(double d) {
-        return (int) (d * 32.0D);
-    }
-
-    public static byte asCompressedAngle(float f) {
-        return (byte) (f * 256.0F / 360.0F);
-    }
-    public static List<Integer> getUUIDS(){
-        return uuids;
+    public static WrapperPlayServerEntityMetadata editMeta(int id,ItemStack stack){
+        WrapperPlayServerEntityMetadata metadata = new WrapperPlayServerEntityMetadata();
+        metadata.setEntityId(id);
+        metadata.setEntityMetadata(
+          Arrays.asList(new WrappedWatchableObject(10, stack))
+        );
+        return metadata;
     }
 
     public static int generateUUID(){

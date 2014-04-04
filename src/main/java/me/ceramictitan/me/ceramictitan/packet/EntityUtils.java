@@ -1,13 +1,11 @@
 package me.ceramictitan.me.ceramictitan.packet;
 
-import com.comphenix.packetwrapper.WrapperPlayServerAttachEntity;
-import com.comphenix.packetwrapper.WrapperPlayServerEntityMetadata;
-import com.comphenix.packetwrapper.WrapperPlayServerSpawnEntity;
-import com.comphenix.packetwrapper.WrapperPlayServerSpawnEntityLiving;
+import com.comphenix.packetwrapper.*;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 import com.comphenix.protocol.wrappers.WrappedWatchableObject;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -61,8 +59,19 @@ public class EntityUtils {
         );
         return metadata;
     }
+    public static void killMobs(Player p,int[] entities){
+        WrapperPlayServerEntityDestroy destroy = new WrapperPlayServerEntityDestroy();
+        destroy.setEntities(entities);
+        destroy.sendPacket(p);
+        for(int id : entities){
+        p.sendMessage("Entity Destroyed! "+ id);
+        }
+        getUUIDS().clear();
 
-    public static int generateUUID(){
+
+    }
+
+    public static int generateEntityID(){
         if(!getUUIDS().contains(ID_INDEX)){
             getUUIDS().add(ID_INDEX);
             return ID_INDEX;

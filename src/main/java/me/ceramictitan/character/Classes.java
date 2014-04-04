@@ -29,13 +29,13 @@ public class Classes extends JavaPlugin {
         }
     }
         if(cmd.getName().equalsIgnoreCase("generate") && args.length == 0){
-            sender.sendMessage(String.valueOf(EntityUtils.generateUUID()));
+            sender.sendMessage(String.valueOf(EntityUtils.generateEntityID()));
             return true;
         }
         if(cmd.getName().equalsIgnoreCase("kill") && args.length == 0 && EntityUtils.getUUIDS().size() > 0){
             if(sender instanceof Player){
                 Player player = (Player)sender;
-                player.sendMessage("Killed all entities");
+                EntityUtils.killMobs(player, EntityUtils.toIntArray(EntityUtils.getUUIDS()));
             return true;
             }
         }

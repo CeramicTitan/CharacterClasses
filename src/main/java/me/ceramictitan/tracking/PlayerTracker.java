@@ -6,6 +6,7 @@ import com.comphenix.packetwrapper.WrapperPlayServerSpawnEntity;
 import com.comphenix.packetwrapper.WrapperPlayServerSpawnEntityLiving;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 import me.ceramictitan.me.ceramictitan.packet.EntityUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
@@ -29,14 +30,15 @@ public class PlayerTracker extends Tracker{
 
     public void showTrackingIcon(ItemStack icon) {
         Player p = getTracker();
-        int slime1 = EntityUtils.generateUUID();
-        int slime2 = EntityUtils.generateUUID();
-        int blockEntityId = EntityUtils.generateUUID();
+        int slime1 = EntityUtils.generateEntityID();
+        int slime2 = EntityUtils.generateEntityID();
+        int blockEntityId = EntityUtils.generateEntityID();
         WrapperPlayServerSpawnEntityLiving ent1 = EntityUtils.spawnSlime(slime1, p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ(), 1);
         WrapperPlayServerSpawnEntityLiving ent2 = EntityUtils.spawnSlime(slime2, p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ(), 1);
         ent1.sendPacket(p);
         ent2.sendPacket(p);
-        WrapperPlayServerAttachEntity attachToPlayer = EntityUtils.attachEntity(p.getEntityId(), ent1.getEntityID());
+        Bukkit.getLogger().info("slime1: "+ent1.getEntityID()+" Slime2: "+ent2.getEntityID());
+        WrapperPlayServerAttachEntity attachToPlayer = EntityUtils.attachEntity(ent1.getEntityID(), p.getEntityId());
         attachToPlayer.sendPacket(p);
         WrapperPlayServerAttachEntity attachToSlime = EntityUtils.attachEntity(ent2.getEntityID(), ent1.getEntityID());
         attachToSlime.sendPacket(p);

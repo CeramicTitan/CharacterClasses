@@ -77,8 +77,8 @@ public class EntityUtils {
             return ID_INDEX;
         }
         while(getUUIDS().contains(ID_INDEX)){
-            getUUIDS().add(ID_INDEX++);
-            return ID_INDEX++;
+            getUUIDS().add(++ID_INDEX);
+            return ID_INDEX;
         }
         return ID_INDEX;
     }
